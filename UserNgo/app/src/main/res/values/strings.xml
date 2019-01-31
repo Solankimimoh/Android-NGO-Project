@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">UserNgo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="new_user">New User?</string>
+    <string name="name">Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="address">Address</string>
+    <string name="signup">Signup</string>
+    <string name="old_user">Old user ?</string>
+    <string name="forgot_password_msg">Please Provide your email ID. we will send you reset email on your mail</string>
+    <string name="send_mail">Send Mail</string>
+
+
+    <string-array name="user_type">
+        <item>User</item>
+        <item>NGO</item>
+    </string-array>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
