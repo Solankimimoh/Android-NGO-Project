@@ -95,15 +95,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressDialog.setTitle("Login");
         progressDialog.setMessage("Checking credentials..");
-//        progressDialog.show();
+        progressDialog.show();
 
         if (email.isEmpty() || password.isEmpty()) {
+            progressDialog.dismiss();
             Toast.makeText(this, "Please enter the details", Toast.LENGTH_SHORT).show();
         } else {
             if (loginType.equals(getString(R.string.admin))) {
                 if (email.equals(AppConstant.ADMIN_USERNAME) && password.equals(AppConstant.ADMIN_PASSWORD)) {
+                    progressDialog.dismiss();
                     Toast.makeText(this, "Succcess", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(this, "Invalid Data", Toast.LENGTH_SHORT).show();
                 }
 
@@ -115,8 +118,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                    final Intent gotoHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
+                                    startActivity(gotoHomeActivity);
+                                    finish();
                                 } else {
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                                 }
                             }
