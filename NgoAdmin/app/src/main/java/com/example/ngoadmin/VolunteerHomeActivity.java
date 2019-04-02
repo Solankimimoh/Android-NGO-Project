@@ -190,9 +190,9 @@ public class VolunteerHomeActivity extends AppCompatActivity
             final Intent verifyPost = new Intent(VolunteerHomeActivity.this, VerifyPostActivity.class);
             startActivity(verifyPost);
 
-        }else if(id==R.id.nav_logout)
-        {
-
+        } else if (id == R.id.nav_logout) {
+            firebaseAuth.signOut();
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

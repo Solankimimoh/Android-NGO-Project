@@ -206,8 +206,6 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_category) {
             final Intent addcategory = new Intent(HomeActivity.this, AddCategoryActivity.class);
             startActivity(addcategory);
-        } else if (id == R.id.nav_view_category) {
-
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
@@ -222,6 +220,10 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onPostItemClickListener(PostModel postModel) {
+
+        final Intent gotoComment = new Intent(HomeActivity.this, PostCommentActivity.class);
+        gotoComment.putExtra("KEY_PUSH", postModel.getPushKey());
+        startActivity(gotoComment);
 
     }
 }

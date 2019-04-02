@@ -8,10 +8,7 @@
             android:id="@+id/nav_category"
             android:icon="@drawable/icon_category"
             android:title="Add Category" />
-        <item
-            android:id="@+id/nav_view_category"
-            android:icon="@drawable/icon_about"
-            android:title="View Category" />
+
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/icon_logout"

@@ -41,6 +41,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         initView();
 
+        if (firebaseAuth.getCurrentUser() != null) {
+            final Intent gotoHome = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(gotoHome);
+            finish();
+        }
+
     }
 
     private void initView() {
@@ -116,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                     progressDialog.dismiss();
                                                     final Intent verifyUser = new Intent(LoginActivity.this, HomeActivity.class);
                                                     startActivity(verifyUser);
+                                                    finish();
                                                 }
                                             }
 

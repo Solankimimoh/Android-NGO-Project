@@ -1,7 +1,9 @@
 package com.example.ngoadmin;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog progressDialog;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences("login.xml", Context.MODE_PRIVATE);
+
+        String type = sharedpreferences.getString("TYPE", "");
 
 
+        if (type != null) {
+            if (type.equals("0")) {
+                final Intent gotoPatient = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                startActivity(gotoPatient);
+                finish();
+            } else if (type.equals("1")) {
+                if (auth.getCurrentUser() != null) {
+                    final Intent gotoDoctor = new Intent(LoginActivity.this, VolunteerHomeActivity.class);
+                    startActivity(gotoDoctor);
+                    finish();
+                }
+            }
+        }
         initView();
     }
 
@@ -100,6 +120,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (loginType.equals(getString(R.string.admin))) {
                 if (email.equals(AppConstant.ADMIN_USERNAME) && password.equals(AppConstant.ADMIN_PASSWORD)) {
                     progressDialog.dismiss();
+                    SharedPreferences sharedpreferences;
+                    sharedpreferences = getSharedPreferences("login.xml", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("TYPE", "0");
+                    editor.apply();
                     Toast.makeText(this, "Succcess", Toast.LENGTH_SHORT).show();
                     final Intent gotoAdminHomeIntent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                     startActivity(gotoAdminHomeIntent);
@@ -115,6 +140,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     progressDialog.dismiss();
+                                    SharedPreferences sharedpreferences;
+                                    sharedpreferences = getSharedPreferences("login.xml", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                                    editor.putString("TYPE", "1");
+                                    editor.apply();
                                     final Intent gotoHomeActivity = new Intent(LoginActivity.this, VolunteerHomeActivity.class);
                                     startActivity(gotoHomeActivity);
                                     finish();
