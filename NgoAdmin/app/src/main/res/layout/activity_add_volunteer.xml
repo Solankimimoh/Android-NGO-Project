@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".AddVolunteerActivity">
+
+
+    <EditText
+        android:id="@+id/add_volunteer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/add_volunteer_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mobile"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/add_volunteer_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/add_volunteer_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="numberPassword" />
+
+
+    <EditText
+        android:id="@+id/add_volunteer_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
+        android:inputType="text" />
+
+    <Spinner
+        android:id="@+id/add_volunteer_area_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp" />
+
+
+    <Button
+        android:layout_margin="15dp"
+        android:id="@+id/add_volunteer_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/add"
+        android:textColor="@color/colorWhite" />
+
+
+</LinearLayout>
