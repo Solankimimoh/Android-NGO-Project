@@ -1,4 +1,4 @@
-package com.example.ngoadmin;
+package com.example.ngouser;
 
 class AppConstant {
     public static final String FIREBASE_VOLUNTEER = "volunteer";

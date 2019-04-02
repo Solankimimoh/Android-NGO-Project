@@ -93,7 +93,8 @@ public class AdminHomeActivity extends AppCompatActivity
             final Intent addArea = new Intent(AdminHomeActivity.this, AddAreaActivity.class);
             startActivity(addArea);
         } else if (id == R.id.nav_verify_user) {
-
+            final Intent verifyUser = new Intent(AdminHomeActivity.this, VerifyUserActivity.class);
+            startActivity(verifyUser);
         } else if (id == R.id.nav_logout) {
             finish();
         }

@@ -3,9 +3,11 @@ package com.example.ngouser;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignupActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private EditText nameEd;
     private EditText emailEd;
@@ -29,7 +34,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private Button signupBtn;
     private TextView oldUserTv;
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
+    private boolean isNgo;
 
 
     @Override
@@ -44,6 +52,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private void initView() {
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
         nameEd = findViewById(R.id.activity_signup_name_ed);
         emailEd = findViewById(R.id.activity_signup_email_ed);
         passwordEd = findViewById(R.id.activity_signup_password_ed);
@@ -56,6 +66,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         signupBtn.setOnClickListener(this);
         oldUserTv.setOnClickListener(this);
+        userTypeSpinner.setOnItemSelectedListener(this);
 
 
     }
@@ -100,12 +111,33 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(SignupActivity.this, "User Already Exists", Toast.LENGTH_SHORT).show();
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(SignupActivity.this, "Error: "+task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignupActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
+
                         progressDialog.dismiss();
                         Toast.makeText(SignupActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
-                        finish();
+                        databaseReference
+                                .child(AppConstant.FIREBASE_USER)
+                                .child(firebaseAuth.getCurrentUser().getUid())
+                                .setValue(new UserModel(name
+                                        , email
+                                        , password
+                                        , mobile
+                                        , address
+                                        , isNgo
+                                        , false), new DatabaseReference.CompletionListener() {
+                                    @Override
+                                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                        if (databaseError != null) {
+                                            Toast.makeText(SignupActivity.this, "Error " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            firebaseAuth.signOut();
+                                            Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    }
+                                });
                     }
                 }
             });
@@ -113,4 +145,18 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        if (position == 0) {
+            isNgo = false;
+        } else if (position == 1) {
+            isNgo = true;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

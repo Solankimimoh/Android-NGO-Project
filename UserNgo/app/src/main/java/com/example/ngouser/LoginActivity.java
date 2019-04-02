@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,7 +28,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button loginbtn;
     private TextView forgotpwdTv;
     private TextView newuserTv;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+
     private ProgressDialog progressDialog;
 
     @Override
@@ -37,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initView() {
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
         emailEd = findViewById(R.id.activity_login_email_ed);
         passwordEd = findViewById(R.id.activity_login_password_ed);
         loginbtn = findViewById(R.id.activity_login_btn);
@@ -50,7 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         newuserTv.setOnClickListener(this);
 
     }
-
 
 
     @Override
@@ -89,12 +98,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             if (!task.isSuccessful()) {
                                 progressDialog.dismiss();
-                                Toast.makeText(LoginActivity.this, "Invalid Details! try Again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error " + task.getException(), Toast.LENGTH_SHORT).show();
                             } else {
-                                progressDialog.dismiss();
-                                final Intent gotoHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(gotoHomeActivity);
-                                finish();
+
+                                databaseReference
+                                        .child(AppConstant.FIREBASE_USER)
+                                        .child(firebaseAuth.getCurrentUser().getUid())
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                                                if (!userModel.isVerify()) {
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(LoginActivity.this, "Not Verified yet", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    progressDialog.dismiss();
+                                                    firebaseAuth.signOut();
+                                                    final Intent verifyUser = new Intent(LoginActivity.this, HomeActivity.class);
+                                                    startActivity(verifyUser);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                             }
                         }
                     });

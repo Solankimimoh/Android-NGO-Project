@@ -30,7 +30,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder> 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            areaNameTv = itemView.findViewById(R.id.row_layout_area_name);
+//            areaNameTv = itemView.findViewById(R.id.row_layout_area_name);
 
         }
 
@@ -46,7 +46,8 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_layout_area, viewGroup, false);
+//        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_layout_area, viewGroup, false);
+        View view = null;
         return new MyViewHolder(view);
     }
 
