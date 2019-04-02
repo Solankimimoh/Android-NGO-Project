@@ -1,64 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="15dp"
-    tools:context=".AddVolunteerActivity">
+    android:overScrollMode="never">
 
-
-    <EditText
-        android:id="@+id/add_volunteer_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/add_volunteer_mobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/mobile"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/add_volunteer_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/add_volunteer_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="numberPassword" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:context=".AddVolunteerActivity">
 
 
-    <EditText
-        android:id="@+id/add_volunteer_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/address"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/add_volunteer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/add_volunteer_area_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp" />
+        <EditText
+            android:id="@+id/add_volunteer_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobile"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/add_volunteer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/add_volunteer_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="numberPassword" />
 
 
-    <Button
-        android:layout_margin="15dp"
-        android:id="@+id/add_volunteer_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/add"
-        android:textColor="@color/colorWhite" />
+        <EditText
+            android:id="@+id/add_volunteer_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address"
+            android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/add_volunteer_area_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp" />
 
 
-</LinearLayout>
+        <Button
+            android:id="@+id/add_volunteer_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/add"
+            android:textColor="@color/colorWhite" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/add_volunteer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
