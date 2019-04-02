@@ -7,6 +7,7 @@ public class VolunteerModel {
     private String password;
     private String mobile;
     private String address;
+    private String area;
 
     public VolunteerModel() {
     }
@@ -19,6 +20,22 @@ public class VolunteerModel {
         this.address = address;
     }
 
+    public VolunteerModel(String name, String email, String password, String mobile, String address, String area) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.mobile = mobile;
+        this.address = address;
+        this.area = area;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public String getName() {
         return name;

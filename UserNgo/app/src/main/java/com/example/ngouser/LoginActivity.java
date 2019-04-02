@@ -111,9 +111,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 if (!userModel.isVerify()) {
                                                     progressDialog.dismiss();
                                                     Toast.makeText(LoginActivity.this, "Not Verified yet", Toast.LENGTH_SHORT).show();
+                                                    firebaseAuth.signOut();
                                                 } else {
                                                     progressDialog.dismiss();
-                                                    firebaseAuth.signOut();
                                                     final Intent verifyUser = new Intent(LoginActivity.this, HomeActivity.class);
                                                     startActivity(verifyUser);
                                                 }

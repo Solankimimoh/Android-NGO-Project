@@ -10,33 +10,33 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
 
 
     private Context context;
-    private ArrayList<AreaModel> areaModelArrayList;
+    private ArrayList<CategoryModel> categoryModelArrayList;
 
 
-    public AreaAdapter(Context context, ArrayList<AreaModel> areaModelArrayList) {
+    public CategoryAdapter(Context context, ArrayList<CategoryModel> categoryModelArrayList) {
         this.context = context;
-        this.areaModelArrayList = areaModelArrayList;
+        this.categoryModelArrayList = categoryModelArrayList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private AreaModel areaModel;
+        private CategoryModel categoryModel;
         private TextView areaNameTv;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-//            areaNameTv = itemView.findViewById(R.id.row_layout_area_name);
+            areaNameTv = itemView.findViewById(R.id.row_layout_category_name);
 
         }
 
-        public void setData(AreaModel data) {
-            this.areaModel = data;
-            areaNameTv.setText(data.getAreaName());
+        public void setData(CategoryModel data) {
+            this.categoryModel = data;
+            areaNameTv.setText(data.getCategoryName());
 
 
         }
@@ -46,22 +46,21 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_layout_area, viewGroup, false);
-        View view = null;
+        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_layout_category, viewGroup, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-        AreaModel areaModel = areaModelArrayList.get(i);
-        myViewHolder.setData(areaModel);
+        CategoryModel categoryModel = categoryModelArrayList.get(i);
+        myViewHolder.setData(categoryModel);
     }
 
 
     @Override
     public int getItemCount() {
-        return areaModelArrayList.size();
+        return categoryModelArrayList.size();
     }
 
 }

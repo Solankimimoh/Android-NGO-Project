@@ -91,8 +91,27 @@ public class AddVolunteerActivity extends AppCompatActivity implements View.OnCl
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         volunteerModelArrayList.clear();
                         for (DataSnapshot volunteerModels : dataSnapshot.getChildren()) {
-                            VolunteerModel volunteerModel = volunteerModels.getValue(VolunteerModel.class);
-                            volunteerModelArrayList.add(volunteerModel);
+                            final VolunteerModel volunteerModel = volunteerModels.getValue(VolunteerModel.class);
+
+                            databaseReference
+                                    .child(AppConstant.FIREBASE_AREA)
+                                    .child(volunteerModel.getArea())
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                            AreaModel areaModel = dataSnapshot.getValue(AreaModel.class);
+                                            volunteerModel.setArea(areaModel.getAreaName());
+                                            volunteerModelArrayList.add(volunteerModel);
+                                            volunteerAdapter.notifyDataSetChanged();
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                         }
                         volunteerAdapter.notifyDataSetChanged();
                     }
@@ -133,6 +152,7 @@ public class AddVolunteerActivity extends AppCompatActivity implements View.OnCl
                             AreaModel areaModel = areaSnapshot.getValue(AreaModel.class);
                             areaModel.setAreaPushKey(areaSnapshot.getKey());
                             areaStringArrayList.add(areaModel.getAreaName());
+
                             areaModelArrayList.add(areaModel);
                         }
                         areaAdapter.notifyDataSetChanged();
@@ -169,7 +189,7 @@ public class AddVolunteerActivity extends AppCompatActivity implements View.OnCl
                                 databaseReference
                                         .child(AppConstant.FIREBASE_VOLUNTEER)
                                         .child(firebaseAuth.getCurrentUser().getUid())
-                                        .setValue(new VolunteerModel(namestr, emailstr, passwordstr, mobilestr, addressstr), new DatabaseReference.CompletionListener() {
+                                        .setValue(new VolunteerModel(namestr, emailstr, passwordstr, mobilestr, addressstr, areaSelect), new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                                 if (databaseError != null) {

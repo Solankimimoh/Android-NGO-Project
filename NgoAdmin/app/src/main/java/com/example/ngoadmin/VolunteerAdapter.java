@@ -30,6 +30,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
         private TextView mobile;
         private TextView address;
         private TextView password;
+        private TextView area;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -38,6 +39,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             mobile = itemView.findViewById(R.id.row_layout_volunteer_mobile);
             address = itemView.findViewById(R.id.row_layout_volunteer_address);
             password = itemView.findViewById(R.id.row_layout_volunteer_password);
+            area = itemView.findViewById(R.id.row_layout_volunteer_area);
 
         }
 
@@ -48,7 +50,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.MyVi
             password.setText(data.getPassword());
             mobile.setText(data.getMobile());
             address.setText(data.getAddress());
-
+            area.setText(data.getArea());
         }
 
     }
