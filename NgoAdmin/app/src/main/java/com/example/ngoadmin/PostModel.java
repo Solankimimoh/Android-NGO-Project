@@ -1,4 +1,4 @@
-package com.example.ngouser;
+package com.example.ngoadmin;
 
 public class PostModel {
 

@@ -29,5 +29,6 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="chooseimg">Choose Image</string>
+    <string name="area">Area</string>
 
 </resources>

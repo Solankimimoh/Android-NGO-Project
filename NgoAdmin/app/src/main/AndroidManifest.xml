@@ -9,19 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VerifyUserActivity"></activity>
+        <activity android:name=".VerifyPostActivity"></activity>
+        <activity android:name=".VerifyUserActivity" />
         <activity android:name=".AddAreaActivity" />
         <activity android:name=".AddVolunteerActivity" />
         <activity
             android:name=".AdminHomeActivity"
             android:label="@string/title_activity_admin_home"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".VolunteerHomeActivity"
             android:label="@string/title_activity_home"
@@ -30,7 +25,13 @@
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
