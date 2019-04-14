@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:contentDescription="@null"
         android:padding="30dp"
-        android:src="@drawable/ngouer" />
+        android:src="@drawable/ngouser" />
 
     <TextView
         android:id="@+id/activity_splash_app_name"

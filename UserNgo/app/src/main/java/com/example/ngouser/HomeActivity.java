@@ -207,7 +207,8 @@ public class HomeActivity extends AppCompatActivity
             final Intent addcategory = new Intent(HomeActivity.this, AddCategoryActivity.class);
             startActivity(addcategory);
         } else if (id == R.id.nav_about) {
-
+            final Intent gotoAbout = new Intent(HomeActivity.this, AboutAppActivity.class);
+            startActivity(gotoAbout);
         } else if (id == R.id.nav_logout) {
             firebaseAuth.signOut();
             finish();

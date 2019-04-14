@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:contentDescription="@null"
-            android:src="@drawable/ngouer" />
+            android:src="@drawable/ngouser" />
 
         <EditText
             android:id="@+id/activity_login_email_ed"

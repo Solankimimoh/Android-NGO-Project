@@ -15,7 +15,7 @@
             android:layout_height="150dp"
             android:contentDescription="@null"
             android:padding="30dp"
-            android:src="@drawable/ngouer" />
+            android:src="@drawable/ngouser" />
 
         <EditText
             android:id="@+id/activity_signup_name_ed"
