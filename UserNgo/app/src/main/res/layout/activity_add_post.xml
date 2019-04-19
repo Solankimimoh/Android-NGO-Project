@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".AddPostActivity">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/add_post_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/title"
-        android:inputType="textPersonName" />
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".AddPostActivity">
 
-    <EditText
-        android:id="@+id/add_post_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/add_post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title"
+            android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/add_post_area"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp" />
+        <EditText
+            android:id="@+id/add_post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:inputType="text" />
 
-    <Spinner
-        android:id="@+id/add_post_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp" />
+        <Spinner
+            android:id="@+id/add_post_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp" />
 
-
-    <Button
-        android:id="@+id/add_post_choose_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/chooseimg"
-        android:textColor="@color/colorWhite" />
-
-    <Button
-        android:id="@+id/add_post_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/add"
-        android:textColor="@color/colorWhite" />
+        <Spinner
+            android:id="@+id/add_post_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp" />
 
 
-</LinearLayout>
+        <Button
+            android:id="@+id/add_post_choose_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/chooseimg"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/add_post_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/add"
+            android:textColor="@color/colorWhite" />
+
+
+    </LinearLayout>
+</ScrollView>

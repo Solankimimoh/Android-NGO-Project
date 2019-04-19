@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Share &amp; Care USER</string>
+    <!--<string name="app_name">Share &amp; Care USER</string>-->
+    <string name="app_name">ENGO USER</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -32,5 +33,6 @@
     <string name="area">Area</string>
     <string name="comment">Enter Your Comment</string>
     <string name="appmoto"><![CDATA[“Share & Care” System receive donation from Donor for help wanted people. Our system is very useful to donor. In this system we include more details of Orphanage, School, Slum area, Old age Home.     This information also helps visitors. Donor gives donation to help wanted person which condition is very poor.In our system include the detail of donor, detail of donation, detail of trust, all detail of help wanted persons. We can try to give all details to visitor. The design and all the facilities are stand alone or in an integrated environment.]]></string>
+    <string name="search">Search</string>
 
 </resources>

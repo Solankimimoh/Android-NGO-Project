@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PostItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PostItemClickListener, SearchView.OnQueryTextListener {
 
 
     private FirebaseDatabase firebaseDatabase;
@@ -77,7 +79,9 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.setAdapter(postAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
-
+        View hView =  navigationView.getHeaderView(0);
+        TextView textView = hView.findViewById(R.id.textView);
+        textView.setText(firebaseAuth.getCurrentUser().getEmail());
         getPostData();
 
 
@@ -179,6 +183,11 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -190,7 +199,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             return true;
         }
 
@@ -226,5 +235,25 @@ public class HomeActivity extends AppCompatActivity
         gotoComment.putExtra("KEY_PUSH", postModel.getPushKey());
         startActivity(gotoComment);
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        String usertext = s.toLowerCase();
+        ArrayList<PostModel> searchArrayList = new ArrayList<>();
+
+        for (int i = 0; i < postModelArrayList.size(); i++) {
+            if (postModelArrayList.get(i).getTitle().toLowerCase().contains(usertext) ||
+                    postModelArrayList.get(i).getTitle().toLowerCase().contains(usertext)) {
+                searchArrayList.add(postModelArrayList.get(i));
+            }
+        }
+        postAdapter.updateList(searchArrayList);
+        return true;
     }
 }

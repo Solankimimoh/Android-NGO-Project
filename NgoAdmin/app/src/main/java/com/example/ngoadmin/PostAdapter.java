@@ -27,6 +27,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         this.postItemClickListener = postItemClickListener;
     }
 
+    public void updateList(ArrayList<PostModel> searchArrayList) {
+        postModelArrayList = new ArrayList<>();
+        postModelArrayList.addAll(searchArrayList);
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private PostModel postModel;
