@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private EditText nameEd;
@@ -85,6 +88,18 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    public static boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+
     private void userRegister() {
 
         final String email = emailEd.getText().toString().trim();
@@ -103,44 +118,53 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             progressDialog.dismiss();
             Toast.makeText(this, "Details not entered", Toast.LENGTH_SHORT).show();
         } else {
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (!task.isSuccessful()) {
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(SignupActivity.this, "User Already Exists", Toast.LENGTH_SHORT).show();
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(SignupActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
+            if (passwordEd.getText().toString().length() < 8 || !isValidPassword(passwordEd.getText().toString())) {
 
-                        progressDialog.dismiss();
-                        Toast.makeText(SignupActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
-                        databaseReference
-                                .child(AppConstant.FIREBASE_USER)
-                                .child(firebaseAuth.getCurrentUser().getUid())
-                                .setValue(new UserModel(name
-                                        , email
-                                        , password
-                                        , mobile
-                                        , address
-                                        , isNgo
-                                        , false), new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                                        if (databaseError != null) {
-                                            Toast.makeText(SignupActivity.this, "Error " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            firebaseAuth.signOut();
-                                            Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                                            finish();
+                progressDialog.dismiss();
+                Toast.makeText(this, "Please enter 8 char and match password policy", Toast.LENGTH_SHORT).show();
+            } else {
+
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(SignupActivity.this, "User Already Exists", Toast.LENGTH_SHORT).show();
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(SignupActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+
+                            progressDialog.dismiss();
+                            Toast.makeText(SignupActivity.this, "Signup Success", Toast.LENGTH_SHORT).show();
+                            databaseReference
+                                    .child(AppConstant.FIREBASE_USER)
+                                    .child(firebaseAuth.getCurrentUser().getUid())
+                                    .setValue(new UserModel(name
+                                            , email
+                                            , password
+                                            , mobile
+                                            , address
+                                            , isNgo
+                                            , false), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                            if (databaseError != null) {
+                                                Toast.makeText(SignupActivity.this, "Error " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                firebaseAuth.signOut();
+                                                Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
                     }
-                }
-            });
+                });
+            }
+
+
         }
     }
 
